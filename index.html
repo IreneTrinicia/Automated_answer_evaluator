@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Automated Answer Evaluation</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+<body>
+    <div class="container">
+        <h1>Automated Answer Evaluation</h1>
+           <div class="upload-section">
+            <h2>Upload Keywords and Student Answers</h2>
+            <p>Please upload the keywords PDF and the student answer PDF. Then click on "Submit" to evaluate.</p>
+            <form id="evaluationForm" enctype="multipart/form-data" method="POST" action="/evaluate">
+                <label for="keywordsFile">Keywords:</label>
+                <input type="file" id="keywordsFile" name="keywordsFile" accept=".pdf" required>
+                <label for="studentFile">Student Answer:</label>
+                <input type="file" id="studentFile" name="studentFile" accept=".pdf" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <div id="results">
+            <h2>Evaluation Results</h2>
+            <p id="score">{{ score }}</p>
+            {% if feedback %}
+                <div id="feedback">
+                    <div class="feedback-section">
+                        <h3>Missing Keywords:</h3>
+                        <div class="keywords-box">
+                            {{ feedback.missing_keywords|join(', ') }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
